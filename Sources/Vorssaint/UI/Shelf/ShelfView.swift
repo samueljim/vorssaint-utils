@@ -292,7 +292,7 @@ struct ShelfView: View {
 /// Hosts the invisible view the system share sheet is anchored to. SwiftUI
 /// creates and owns that view, so the button reaches whichever one is on
 /// screen right now through the box below.
-private struct ShelfSharePickerAnchor: NSViewRepresentable {
+struct ShelfSharePickerAnchor: NSViewRepresentable {
     final class Anchor {
         fileprivate weak var view: NSView?
         private let presenter = ShelfSharePresenter()

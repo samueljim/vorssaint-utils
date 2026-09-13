@@ -82,6 +82,9 @@ struct MetricsTests {
                          file: file, line: line)
         }
 
+        NotchTests.run { expect($0, $1) }
+        NotchVolumeKeyTests.run { expect($0, $1) }
+
         // MARK: Byte / rate formatting
 
         // Pinned, because everything below reads a decimal point and this
@@ -3767,36 +3770,24 @@ struct MetricsTests {
                "every app version needs its own incremented bundle build")
         expect(SupportUpdateIntroInfo.releaseVersion == "3.3.2",
                "the support prompt remains deliberately pinned to 3.3.2")
-        // 3.3.3 adds several headline features, so the tour is re-curated
-        // around only what this update introduces. The hotfix releases patch
-        // that release: whoever skipped 3.3.3 still gets its tour once, and
-        // whoever already saw it does not see it again.
-        expect(UpdateHighlightsInfo.releaseVersion == "3.3.3",
-               "re-decide the highlights tour on a feature release: re-curate its rows and move the pin to the shipping version")
-        expect(UpdateHighlightsInfo.shouldShow(appVersion: "3.3.3", lastSeenVersion: "3.3.2")
-               && UpdateHighlightsInfo.shouldShow(appVersion: "3.3.3-beta.5", lastSeenVersion: "3.3.2")
-               && UpdateHighlightsInfo.shouldShow(appVersion: "3.3.3", lastSeenVersion: nil)
-               && UpdateHighlightsInfo.shouldShow(appVersion: "3.3.4", lastSeenVersion: "3.3.2")
-               && UpdateHighlightsInfo.shouldShow(appVersion: "3.3.4", lastSeenVersion: nil),
-               "highlights tour shows once after updating to its pinned release, its betas or a patch of it")
-        expect(!UpdateHighlightsInfo.shouldShow(appVersion: "3.3.3", lastSeenVersion: "3.3.3")
-               && !UpdateHighlightsInfo.shouldShow(appVersion: "3.3.3-beta.5", lastSeenVersion: "3.3.3")
-               && !UpdateHighlightsInfo.shouldShow(appVersion: "3.3.4", lastSeenVersion: "3.3.3"),
-               "highlights tour stays hidden after it is seen, patches included")
-        expect(!UpdateHighlightsInfo.shouldShow(appVersion: "3.3.2", lastSeenVersion: nil)
-               && !UpdateHighlightsInfo.shouldShow(appVersion: "3.4.0", lastSeenVersion: nil)
-               && !UpdateHighlightsInfo.shouldShow(appVersion: "4.0.0", lastSeenVersion: nil),
-               "highlights tour never leaks into another feature release")
-        expect(UpdateHighlightsInfo.shouldShow(appVersion: "3.3.5", lastSeenVersion: "3.3.2"),
-               "updating directly from 3.3.2 to 3.3.5 shows the feature tour that was skipped")
-        expect(UpdateHighlightsInfo.shouldShow(appVersion: "3.3.5", lastSeenVersion: nil),
-               "3.3.5 shows the feature tour when no earlier tour was recorded")
-        expect(!UpdateHighlightsInfo.shouldShow(appVersion: "3.3.5", lastSeenVersion: "3.3.3"),
-               "a tour already seen in 3.3.3 or its hotfixes does not repeat in 3.3.5")
-        expect(FileManager.default.fileExists(atPath: "Resources/Images/highlights-windowlayout.png")
-               && FileManager.default.fileExists(atPath: "Resources/Images/highlights-quitprotection.png")
-               && FileManager.default.fileExists(atPath: "Resources/Images/highlights-recorderblur.png"),
-               "3.3.3 highlights tour includes curated real captures for window layout, quit protection and recorder blur")
+        expect(UpdateHighlightsInfo.releaseVersion == "3.4.0-beta.1",
+               "the prepared tour belongs to the first 3.4 beta without changing the installed version")
+        for version in ["3.4.0-beta.1", "3.4.0-beta.2", "3.4.0-beta.10"] {
+            expect(UpdateHighlightsInfo.shouldShow(appVersion: version, lastSeenVersion: nil)
+                   && UpdateHighlightsInfo.shouldShow(appVersion: version, lastSeenVersion: "3.3.3"),
+                   "the notch tour introduces this beta cycle to new and returning users")
+            expect(!UpdateHighlightsInfo.shouldShow(appVersion: version, lastSeenVersion: UpdateHighlightsInfo.releaseVersion),
+                   "the beta tour does not repeat after it has been seen")
+            expect(!SupportUpdateIntroInfo.shouldShow(appVersion: version, lastSeenVersion: nil),
+                   "beta updates do not request the support and social introduction")
+        }
+        for version in ["3.3.5", "3.4.0", "3.4.1", "3.4.0-rc.1", "3.4.0-beta.0", "3.4.0-beta.no", "3.5.0-beta.1", "4.0.0"] {
+            expect(!UpdateHighlightsInfo.matchesRelease(version)
+                   && !UpdateHighlightsInfo.shouldShow(appVersion: version, lastSeenVersion: nil),
+                   "previewing from the current build and other release cycles cannot consume the future beta tour")
+        }
+        expect(FileManager.default.fileExists(atPath: "Resources/Images/highlights-notch.png"),
+               "the notch tour bundles its static layout illustration")
         expect(registeredDefaults[DefaultsKey.mixerLowerVolumeOnHeadphonesDisconnect] as? Bool == false,
                "headphone disconnect volume lowering is opt-in")
         expect(registeredDefaults[DefaultsKey.mixerHeadphonesDisconnectVolumePercent] as? Int
@@ -14884,7 +14875,7 @@ struct MetricsTests {
 
         // MARK: Features hub catalog
 
-        expect(AppFeature.allCases.count == 57, "feature catalog has 57 features")
+        expect(AppFeature.allCases.count == 66, "feature catalog has 66 features")
         expect(Set(AppFeature.allCases.map(\.rawValue)).count == AppFeature.allCases.count,
                "feature ids are unique")
         expect(AppFeature.allCases.map(\.rawValue) == [
@@ -14897,7 +14888,7 @@ struct MetricsTests {
             "keepAwake", "brightness", "extraBrightness", "bluetoothSleep",
             "quickLauncher", "quickToggles", "colorPicker", "screenOCR", "cleaningMode", "mediaTools",
             "cleaner", "uninstaller", "homebrew", "appUpdates", "screenshot", "cameraPreview",
-            "radialMenu", "scratchpad", "commandBar", "screenRecorder", "killProcess",
+            "radialMenu", "scratchpad", "commandBar", "screenRecorder", "killProcess", "notch", "notchCalendar", "notchNotifications", "notchGestures", "notchTimer", "notchAccessories", "notchLyrics", "notchQueue", "notchDownloads",
             "monitorCPU", "monitorGPU", "monitorMemory", "monitorNetwork", "monitorDisk", "monitorPower",
             "fanControl",
         ], "feature ids are stable (they persist inside availability keys)")
@@ -15037,7 +15028,7 @@ struct MetricsTests {
         expect(AppPermission.allCases.map(\.rawValue) == [
             "accessibility", "screenRecording", "fullDiskAccess", "filesAndFolders", "notifications",
             "automationFinder", "automationTerminal", "audioCapture", "microphone", "camera",
-            "appManagement",
+            "appManagement", "calendar",
         ], "permission portal contains every supported permission")
         let onboardingViewSource = (try? String(
             contentsOfFile: "Sources/Vorssaint/UI/Onboarding/OnboardingView.swift",

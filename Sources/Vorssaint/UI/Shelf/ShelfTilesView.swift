@@ -604,7 +604,7 @@ final class ShelfTileView: NSView, NSDraggingSource {
             draggingItem.setDraggingFrame(bounds, contents: entry.icon)
             return draggingItem
         }
-        shelf.beginInternalDrag(ids: draggedIDs)
+        shelf.beginInternalDrag(ids: draggedIDs, from: window)
         shelf.beginInteraction()
         beginDraggingSession(with: draggingItems, event: event, source: self)
     }
