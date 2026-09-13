@@ -7,9 +7,10 @@ All notable changes to this project are documented here. The format follows
 ## [Unreleased]
 
 ### Summary
-App Switcher opens more smoothly, keeps more apps available, filters by display, excludes hidden helper windows and preserves focus; on-screen keyboard input keeps panels open. Brightness, Screenshot and Scratchpad gain shortcuts, Screenshot gains preview focus, menu bar recovery waits for placement, its panel keeps a continuous background, Cleaner protects customizations, Quit on close preserves incoming calls, and screen recordings keep video and audio aligned.
+App Switcher opens more smoothly, keeps more apps available, filters by display, excludes hidden helper windows and preserves focus; on-screen keyboard input keeps panels open. Brightness, Screenshot and Scratchpad gain shortcuts, Screenshot gains preview focus, menu bar recovery waits for placement, its panel keeps a continuous background, Cleaner protects customizations, Quit on close preserves incoming calls, screen recordings keep video and audio aligned, and Window layout adds vertical quarters and thirds for tall monitors.
 
 ### Added
+- Window layout adds vertical quarters and vertical thirds (plus top/bottom two-thirds) for stacking windows on tall monitors.
 - Display brightness gains optional custom shortcuts for the primary display or the display under the pointer. Thanks to @EugeneCarldotme.
 - App Switcher can show only windows on the display under the pointer, staying closed on empty displays. Thanks to @EugeneCarldotme.
 - Scratchpad tabs can be created with Command-T and closed with Command-W, keeping confirmation for notes with text. Thanks to @Borisserz.
