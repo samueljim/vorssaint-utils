@@ -641,8 +641,8 @@ enum DefaultsKey {
     static let windowLayoutShortcutTopTwoThirds = "windowLayoutShortcutTopTwoThirds"
     static let windowLayoutShortcutBottomTwoThirds = "windowLayoutShortcutBottomTwoThirds"
     static let windowLayoutShortcutTopQuarter = "windowLayoutShortcutTopQuarter"
-    static let windowLayoutShortcutUpperCenterQuarter = "windowLayoutShortcutUpperCenterQuarter"
-    static let windowLayoutShortcutLowerCenterQuarter = "windowLayoutShortcutLowerCenterQuarter"
+    static let windowLayoutShortcutSecondQuarter = "windowLayoutShortcutSecondQuarter"
+    static let windowLayoutShortcutThirdQuarter = "windowLayoutShortcutThirdQuarter"
     static let windowLayoutShortcutBottomQuarter = "windowLayoutShortcutBottomQuarter"
     static let windowLayoutShortcutPreviousDisplay = "windowLayoutShortcutPreviousDisplay"
     static let windowLayoutShortcutNextDisplay = "windowLayoutShortcutNextDisplay"
@@ -1509,8 +1509,8 @@ enum Defaults {
         DefaultsKey.windowLayoutShortcutTopTwoThirds: WindowLayoutAction.clearedShortcutStorageValue,
         DefaultsKey.windowLayoutShortcutBottomTwoThirds: WindowLayoutAction.clearedShortcutStorageValue,
         DefaultsKey.windowLayoutShortcutTopQuarter: WindowLayoutAction.clearedShortcutStorageValue,
-        DefaultsKey.windowLayoutShortcutUpperCenterQuarter: WindowLayoutAction.clearedShortcutStorageValue,
-        DefaultsKey.windowLayoutShortcutLowerCenterQuarter: WindowLayoutAction.clearedShortcutStorageValue,
+        DefaultsKey.windowLayoutShortcutSecondQuarter: WindowLayoutAction.clearedShortcutStorageValue,
+        DefaultsKey.windowLayoutShortcutThirdQuarter: WindowLayoutAction.clearedShortcutStorageValue,
         DefaultsKey.windowLayoutShortcutBottomQuarter: WindowLayoutAction.clearedShortcutStorageValue,
         DefaultsKey.windowLayoutShortcutPreviousDisplay: WindowLayoutAction.clearedShortcutStorageValue,
         DefaultsKey.windowLayoutShortcutNextDisplay: GlobalShortcut.windowLayoutNextDisplayDefault.storageValue,

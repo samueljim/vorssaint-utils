@@ -176,8 +176,8 @@ struct WindowLayoutSettings: View {
 
             Section(text.quarters) {
                 actionRow(.topQuarter)
-                actionRow(.upperCenterQuarter)
-                actionRow(.lowerCenterQuarter)
+                actionRow(.secondQuarter)
+                actionRow(.thirdQuarter)
                 actionRow(.bottomQuarter)
             }
 
