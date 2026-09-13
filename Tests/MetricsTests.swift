@@ -4702,8 +4702,8 @@ struct MetricsTests {
                "center half starts with no combination of its own")
         let verticalLayouts: [(WindowLayoutAction, UInt32, String)] = [
             (.topQuarter, 56, DefaultsKey.windowLayoutShortcutTopQuarter),
-            (.secondQuarter, 58, DefaultsKey.windowLayoutShortcutSecondQuarter),
-            (.thirdQuarter, 59, DefaultsKey.windowLayoutShortcutThirdQuarter),
+            (.secondTopQuarter, 58, DefaultsKey.windowLayoutShortcutSecondTopQuarter),
+            (.thirdTopQuarter, 59, DefaultsKey.windowLayoutShortcutThirdTopQuarter),
             (.bottomQuarter, 60, DefaultsKey.windowLayoutShortcutBottomQuarter),
             (.topThird, 61, DefaultsKey.windowLayoutShortcutTopThird),
             (.middleThird, 62, DefaultsKey.windowLayoutShortcutMiddleThird),
@@ -4731,8 +4731,8 @@ struct MetricsTests {
                     && !layoutStrings.centerHalf.isEmpty
                     && !layoutStrings.quarters.isEmpty
                     && !layoutStrings.topQuarter.isEmpty
-                    && !layoutStrings.secondQuarter.isEmpty
-                    && !layoutStrings.thirdQuarter.isEmpty
+                    && !layoutStrings.secondTopQuarter.isEmpty
+                    && !layoutStrings.thirdTopQuarter.isEmpty
                     && !layoutStrings.bottomQuarter.isEmpty
                     && !layoutStrings.topThird.isEmpty
                     && !layoutStrings.middleThird.isEmpty
@@ -6333,8 +6333,8 @@ struct MetricsTests {
                "window layout center half sits half wide in the middle of the screen")
         let verticalStripLayouts: [(WindowLayoutAction, CGRect)] = [
             (.topQuarter, CGRect(x: 0, y: 685, width: 1440, height: 215)),
-            (.secondQuarter, CGRect(x: 0, y: 470, width: 1440, height: 215)),
-            (.thirdQuarter, CGRect(x: 0, y: 255, width: 1440, height: 215)),
+            (.secondTopQuarter, CGRect(x: 0, y: 470, width: 1440, height: 215)),
+            (.thirdTopQuarter, CGRect(x: 0, y: 255, width: 1440, height: 215)),
             (.bottomQuarter, CGRect(x: 0, y: 40, width: 1440, height: 215)),
             (.topThird, CGRect(x: 0, y: 613, width: 1440, height: 287)),
             (.middleThird, CGRect(x: 0, y: 326, width: 1440, height: 288)),
